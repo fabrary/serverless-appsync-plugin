@@ -958,7 +958,7 @@ class ServerlessAppsyncPlugin {
       }
     }
     const config = getAppSyncConfig(appSync);
-    this.naming = new Naming(appSync.name);
+    this.naming = new Naming(appSync);
     this.api = new Api(config, this);
   }
 

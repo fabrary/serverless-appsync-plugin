@@ -30,6 +30,34 @@ describe('Api', () => {
       `);
     });
 
+    it('should use the Logical ID override when present', () => {
+      const logicalIdPrefix = 'Logicalidprefix';
+      const api = new Api(
+        given.appSyncConfig({
+          logicalIdPrefix,
+        }),
+        plugin,
+      );
+      expect(api.compileEndpoint()).toMatchInlineSnapshot(`
+        Object {
+          "${logicalIdPrefix}GraphQlApi": Object {
+            "Properties": Object {
+              "AuthenticationType": "API_KEY",
+              "Name": "MyApi",
+              "Tags": Array [
+                Object {
+                  "Key": "stage",
+                  "Value": "Dev",
+                },
+              ],
+              "XrayEnabled": false,
+            },
+            "Type": "AWS::AppSync::GraphQLApi",
+          },
+        }
+      `);
+    });
+
     it('should compile the Api Resource for a private endpoint', () => {
       const api = new Api(
         given.appSyncConfig({
